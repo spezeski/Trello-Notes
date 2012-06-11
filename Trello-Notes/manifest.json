@@ -1,0 +1,9 @@
+{
+  "name": "Trello Notes",
+  "version": "0.1",
+  "description": "Add sticky notes to cards that can be edited without opening the card",
+  "background_page": "background.html",
+  "permissions": [
+    "tabs", "http://*/*", "https://*/*"
+  ]
+}
