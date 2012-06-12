@@ -1,5 +1,5 @@
-This extension adds "sticky notes" to the cards in Trello.  The notes can be read and edited without opening the card.
+This extension adds "sticky notes" to the cards in Trello.  The notes can be read and edited without opening the card.  They can also be filtered on, so it's possible to use them for basic hash tagging.
 
-To add a note to a card, click the "Note" badge.  To edit a note, click inside the box.  When you are done editing, press Tab to save the changes.
+The notes are stored in the cards as the first line of the card description, preceded by ">>>> ".  They will appear in the descriptions as quoted text.  Users without the plugin will not see the notes on the card faces, but they will see them in the card descriptions.
 
-The notes are stored in the first line of the card descriptions.  They are preceded by ">>>> ", and will appear in the description as quoted text.  Users without the plugin will not see the notes on the card face, but they will see them in the card description.
+To add a note to a card, click the "Note" badge.  To edit a note, click inside the text box.  When you are done editing, press Tab to save the changes.
