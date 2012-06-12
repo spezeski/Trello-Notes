@@ -4,6 +4,6 @@
   "description": "Add sticky notes to cards that can be edited without opening the card",
   "background_page": "background.html",
   "permissions": [
-    "tabs", "http://*/*", "https://*/*"
+    "tabs", "https://trello.com/*"
   ]
 }
