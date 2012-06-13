@@ -2,10 +2,9 @@ var id=location.href.replace(/.*\//,'');
 id=id.replace(/#/,'');
 code = 'var id=\''+id+'\';';
 
-
 // This code is the minified version of the commented code below.
 // It needs to be minified and stored in a string so it can be injected into the page.
-code += 'function waitStickyPlugin(){var a=Models.Board.get(id);if(!a||!a.isReady||!a.listList.models||a.listList.models.length==0||$(".list-card").length==0){setTimeout(waitStickyPlugin,100)}else{initStickyPlugin()}}function show_sticky(a){var b=Models.Card.get(a);var c=b.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)?b.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)[1]:"";if(c=="")show_sticky_button(a);else show_sticky_text(a)}function show_sticky_button(a){var b=Models.Card.get(a);$(b.view.el).find(".badges").append($("<div>Note</div>").addClass("badge").click(function(){show_sticky_text(a)}).click(function(a){a.stopPropagation()}))}function show_sticky_text(a){var d=Models.Card.get(a);$(d.view.el).find("a.list-card-title").append($("<span></span>").css("display","none").text(" "+(d.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)?d.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)[1]:"")+" "));$(d.view.el).find(".card-labels").remove(".sticky-note").after($("<div></div>").append($("<input></input>").val((d.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)?d.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)[1]:"").replace(/\\\\/,"")).addClass("sticky-note").attr("type","text").css("width","95%").css("height","20px").css("font-size","x-small").css("min-height","0px").css("background-color","lightyellow").css("margin","0px").css("padding-left","5px").blur(function(){d.api.update({idParents:[d.attributes.idList,d.attributes.idBoard],updates:[{set:{desc:">>>> "+$(this).val().replace(/#/,"\\\\#")+"\\n\\n"+d.attributes.desc.replace(/^>>>>[^\\n]*\\n\\n/,"")}}]},function(a){b.set(a,{fromServer:!0})},function(a){b?b(c,a):c.trigger("error",c,a,e)})})).click(function(a){a.stopPropagation()}).keydown(function(a){a.stopPropagation()}).keypress(function(a){a.stopPropagation()}).keyup(function(a){a.stopPropagation()}))}function modify_card(a){var b=Models.Card.get(a);if(!b.view){setTimeout(function(){modify_card(a)},100);return false}(function(){var a=b.view.render;b.view.render=function(){var c=a.apply(this,arguments);show_sticky(b.id);return c}})();(function(){var a=b.view.showDetail;b.view.showDetail=function(){var b=a.apply(this,arguments);$(".js-close-window").click(function(){Models.Board.get(id).view.renderLists()});return b}})();(function(){var a=b.ready;b.ready=function(){b.view.render()}})();b.view.render()}function modify_board(){if(!Models.Notification||!Models.Card||!Models.Board.get(id)){setTimeout(modify_board,100);return false}(function(){var a=Models.Notification.add;Models.Notification.add=function(){var b=a.apply(this,arguments);Models.Board.get(id).view.renderLists();return b}})();(function(){var a=Models.Card.add;Models.Card.add=function(){var b=a.apply(this,arguments);modify_card(arguments[0].id);return b}})();Models.Notification.bind("change",function(a){Models.Board.get(id).view.renderLists()})}function initStickyPlugin(){modify_board();$.each(Models.Board.get(id).listList.models,function(a,b){$.each(b.cardList.models,function(a,b){modify_card(b.id)})})}waitStickyPlugin()';
+code += 'function waitStickyPlugin(){var a=Models.Board.get(id);if(!a||!a.isReady||!a.listList.models||a.listList.models.length==0||$(".list-card").length==0){setTimeout(waitStickyPlugin,100)}else{initStickyPlugin()}}function show_sticky(a){var b=Models.Card.get(a);var c=b.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)?b.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)[1]:"";c=c.replace(/ ?\\[\\]\\(\\"(.*)\\"\\)/,"");if(c=="")show_sticky_button(a);else show_sticky_text(a)}function show_sticky_button(a){var b=Models.Card.get(a);$(b.view.el).find(".badges").append($("<div>Note</div>").addClass("badge").click(function(){show_sticky_text(a)}).click(function(a){a.stopPropagation()}))}function show_sticky_text(a){var d=Models.Card.get(a);var e=d.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)?d.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)[1]:"";var f="lightyellow";var g=0;if(e.match(/\\[\\]\\(\\"(.*)\\"\\)/)){f=e.match(/\\[\\]\\(\\"(.*)\\"\\)/)[1];if(f.match(/[\\d]/))f="#"+f;e=e.replace(/ ?\\[\\]\\(\\"(.*)\\"\\)/,"")}g=$("<span></span>").css("display","none").css("font-size","x-small").text(" "+e+" ").appendTo($(d.view.el).find("a.list-card-title")).width()+15;$(d.view.el).find(".card-labels").remove(".sticky-note").after($("<div></div>").append($("<input></input>").css("width",g).attr("size",e.length+1).val(e.replace(/\\\\/,"")).addClass("sticky-note").attr("type","text").css("height","20px").css("font-size","x-small").css("min-height","0px").css("background-color","lightyellow").css("background-color",f).css("margin","0px").css("padding-left","3px").focus(function(){$(this).css("width","95%")}).blur(function(a){if(a.isTrigger)return false;var e=$(this).val();e=e.replace(/#/,"\\\\#");if(e.match(/\\{(.*)\\}/)){e=e.replace(/\\{.*\\}/,"[](\\""+e.match(/\\{(.*)\\}/)[1]+"\\")")}else if(f!="lightyellow"){e=e+" [](\\""+f+"\\")"}d.api.update({idParents:[d.attributes.idList,d.attributes.idBoard],updates:[{set:{desc:">>>> "+e+"\\n\\n"+d.attributes.desc.replace(/^>>>>[^\\n]*\\n\\n/,"")}}]},function(a){b.set(a,{fromServer:!0})},function(d){b?b(c,d):c.trigger("error",c,d,a)})})).click(function(a){a.stopPropagation()}).keydown(function(a){a.stopPropagation()}).keypress(function(a){a.stopPropagation()}).keyup(function(a){a.stopPropagation()}))}function modify_card(a){var b=Models.Card.get(a);if(!b.view){setTimeout(function(){modify_card(a)},100);return false}(function(){var a=b.view.render;b.view.render=function(){var c=a.apply(this,arguments);show_sticky(b.id);return c}})();(function(){var a=b.view.showDetail;b.view.showDetail=function(){var b=a.apply(this,arguments);return b}})();(function(){var a=b.ready;b.ready=function(){b.view.render()}})();(function(){var a=b.update;b.update=function(){var c=a.apply(this,arguments);b.view.render();return c}})();b.view.render()}function modify_board(){if(!Models.Notification||!Models.Card||!Models.Board.get(id)){setTimeout(modify_board,100);return false}(function(){var a=Models.Notification.add;Models.Notification.add=function(){var b=a.apply(this,arguments);if(Models.Board.get(id))Models.Board.get(id).view.renderLists();return b}})();(function(){var a=Models.Card.add;Models.Card.add=function(){var b=a.apply(this,arguments);modify_card(arguments[0].id);return b}})();Models.Notification.bind("change",function(a){Models.Board.get(id).view.renderLists()})}function initStickyPlugin(){modify_board();$.each(Models.Board.get(id).listList.models,function(a,b){$.each(b.cardList.models,function(a,b){modify_card(b.id)})})}waitStickyPlugin()';
 
 if(document.getElementById('stickyPlugin') == null){
 	var script=document.createElement('script');
@@ -14,9 +13,6 @@ if(document.getElementById('stickyPlugin') == null){
 	document.getElementsByTagName('head').item(0).appendChild(script);
 	document.getElementById('stickyPlugin').className = id;
 } else if ( document.getElementById('stickyPlugin').className != id) {
-	document.getElementById('stickyPlugin').className = id;
-	// Re-load the page to clear all the modifications and start fresh
-	// when the board changes.
 	location=location;
 }
 
@@ -46,6 +42,7 @@ function waitStickyPlugin() {
 function show_sticky(card_id) {
 	var card=Models.Card.get(card_id);
 	var note = (card.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/) ? card.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)[1] : "");
+	note = note.replace(/ ?\\[\\]\\(\\&quot;(.*)\\&quot;\\)/,"")
 	if(note == "")
 		show_sticky_button(card_id);
 	else
@@ -63,42 +60,71 @@ function show_sticky_button(card_id) {
 }
 
 function show_sticky_text(card_id) {
-	var card=Models.Card.get(card_id);
+	var card = Models.Card.get(card_id);
+	var text = (card.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/) ? card.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)[1] : "")
+	var color = "lightyellow";
+	var textWidth = 0;
+
+	if ( text.match(/\\[\\]\\(\\&quot;(.*)\\&quot;\\)/) ) {
+		color = text.match(/\\[\\]\\(\\&quot;(.*)\\&quot;\\)/)[1];
+		if (color.match(/[\\d]/))
+			color = "#"+color;
+		text = text.replace(/ ?\\[\\]\\(\\&quot;(.*)\\&quot;\\)/,"");
+	}
+	
 	
 	// First put the text of the note inside the <a> tag so it can be used for filtering
-	$(card.view.el).find("a.list-card-title")
-	.append( $("<span></span>")
-		.css("display","none")
-		.text(
-			" "+(card.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/) ? card.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)[1] : "")+" "
-		)
-	);
+	textWidth = $("<span></span>")
+	.css("display","none")
+	.css("font-size","x-small")
+	.text(" "+text+" ")
+	.appendTo( $(card.view.el).find("a.list-card-title") )
+	.width()+15;
+	
 
 	// Then insert the text box for editing the note
 	$(card.view.el).find(".card-labels")
 	.remove(".sticky-note")
 	.after( $("<div></div>")
 		.append( $("<input></input>")
+			.css("width",textWidth)
+			.attr("size",text.length+1)
 			.val(
-				(card.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/) ? card.attributes.desc.match(/>>>> ([^\\n]*)\\n\\n/)[1] : "")
-				.replace(/\\\\/,"")
+				text.replace(/\\\\/,"")
 			)
 			.addClass("sticky-note")
 			.attr("type","text")
-			.css("width","95%")
 			.css("height","20px")
 			.css("font-size","x-small")
 			.css("min-height","0px")
 			.css("background-color","lightyellow")
+			.css("background-color",color)
 			.css("margin","0px")
-			.css("padding-left","5px")
-			.blur(function(){
+			.css("padding-left","3px")
+			.focus(function() {
+				$(this).css("width","95%");
+			})
+			.blur(function(e){
+				// Make sure it's not a false alarm
+				if(e.isTrigger)
+					return false;
+				
+				// Condition the inputted text
+				var val = $(this).val();
+				val = val.replace(/#/,"\\\\#");
+				
+				if( val.match(/\\{(.*)\\}/) ) {
+					val = val.replace(/\\{.*\\}/,"[](\\&quot;"+val.match(/\\{(.*)\\}/)[1]+"\\&quot;)");
+				} else if( color!= "lightyellow" ) {
+					val = val + " [](\\&quot;"+color+"\\&quot;)";
+				}
+				
 				card.api.update(
 					{
 						idParents:[card.attributes.idList,card.attributes.idBoard],
 						updates:[{set:{
 							desc:">>>> "
-							+$(this).val().replace(/#/,'\\\\#')
+							+val
 							+"\\n\\n"+card.attributes.desc.replace(/^>>>>[^\\n]*\\n\\n/,"")
 						}}]
 					},
@@ -141,17 +167,17 @@ function modify_card(card_id) {
 		var proxied = card.view.showDetail;
 		card.view.showDetail = function() {
 			var v = proxied.apply(this, arguments);
-			$(".js-close-window").click( function(){Models.Board.get(id).view.renderLists()} );
+			//$(".js-close-window").click( function(){Models.Board.get(id).view.renderLists()} );
 			return v;
 		};
 	})();
-		
+
 	// When cards are changed on the client side, they revert back to how they were before the
 	// change while they send the data to the server.  The server then sends the changes back
 	// and they are made again in the client.  During the time that this is happening, the notes disappear.
-	// The responsible function is card.ready()  Overriding it allows us to show the notes immediately
-	// after the card "reverts."  Disabling the "revert" functionality completely allows the notes
-	// to keep focus even as the list is changed.
+	// Overriding the following two functions allows us to show the notes immediately after the card "reverts."
+	
+	//Disabling this one completely allows the notes to keep focus even as the list is changed.
 	(function() {
 		var proxied = card.ready
 		card.ready = function() {
@@ -161,6 +187,15 @@ function modify_card(card_id) {
 		 };
 	})();
 	
+	(function() {
+		var proxied = card.update
+		card.update = function() {
+			var v = proxied.apply(this, arguments);
+			card.view.render();
+			return v
+		 };
+	})();
+
 	card.view.render();
 }
 
@@ -177,6 +212,7 @@ function modify_board() {
 		var proxied = Models.Notification.add
 		Models.Notification.add = function() {
 			var v = proxied.apply(this, arguments);
+			if( Models.Board.get(id) )
 			Models.Board.get(id).view.renderLists()
 			return v;
 		 };
