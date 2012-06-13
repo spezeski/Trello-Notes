@@ -2,9 +2,10 @@ This extension adds "sticky notes" to the cards in Trello.  The notes can be rea
 
 The notes are stored in the cards as the first line of the card description, preceded by ">>>> ".  They will appear in the descriptions as quoted text.  Users without the plugin will not see the notes on the card faces, but they will see them in the card descriptions.
 
-To add a note to a card, click the "Note" badge.  To edit a note, click inside the text box.  To change the color of the note, add "{mycolor}" to the end.  For example: "{lightblue}" or "{b9b9b9}".  This only needs to be done when changing the color, and the {color} tag will not be shown when you are editing an already colored tag.  Color designations are stored in card descriptions after the notes, but they are stored with the syntax ' []("mycolor")', which makes them invisible when you are viewing the card.
+To add a note to a card, click the "Note" badge.  To edit a note, click inside the text box.  When you are done editing, press Tab to save the changes.
 
-When you are done editing, press Tab to save the changes.
+To change the color of the note, add "{mycolor}" to the end.  For example: "{lightblue}" or "{b9b9b9}".  This only needs to be done when changing the color, and the {color} tag will not be shown when you are editing an already colored tag.  Color designations are stored in card descriptions after the notes, but they are stored with the syntax ' []("mycolor")', which makes them invisible when you are viewing the card.
+
 
 To see development progress, report bugs, or give feedback, see the development board:
 https://trello.com/board/trello-notes/4fd761d15027333d469a7a39
