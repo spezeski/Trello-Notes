@@ -1,7 +1,8 @@
 <script>
 function checkForValidUrl(tabId, changeInfo, tab) {
 	if (tab.url.indexOf('trello.com/board') > -1) {
-		chrome.tabs.executeScript(null, {file:"sticky.js"});
+		chrome.tabs.executeScript(null, {file:"notes.js"});
+		chrome.tabs.executeScript(null, {file:"hooks.js"});
 	}
 }
 
