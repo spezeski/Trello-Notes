@@ -1,8 +1,9 @@
 {
   "name": "Trello Notes",
-  "version": "1.3",
+  "version": "1.3.9",
   "description": "Add sticky notes to cards that can be edited without opening the card",
   "background_page": "background.html",
+  "update_url": "https://raw.github.com/spezeski/Trello-Notes/master/updates.xml",
   "permissions": [
     "tabs", "https://trello.com/*"
   ]
